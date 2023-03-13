@@ -38,6 +38,7 @@ public class LoginController {
 	@PostMapping("/login")
 	public ResponseEntity<Object> logincheck(@RequestBody LoginMaster login)
 	{
+		//for login checking
 		LoginMaster logincheck = null;
 		try
 		{
