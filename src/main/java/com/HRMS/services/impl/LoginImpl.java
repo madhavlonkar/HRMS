@@ -11,6 +11,7 @@ import com.HRMS.dao.LoginDAO;
 import com.HRMS.model.LoginMaster;
 import com.HRMS.services.LoginService;
 import com.HRMS.utility.Encryption_Decryption;
+import com.HRMS.utility.OTPGENERATE_AND_MAIL;
 
 @Service
 public class LoginImpl implements LoginService {
@@ -33,6 +34,9 @@ public class LoginImpl implements LoginService {
 	@Override
 	public LoginMaster logincheck(LoginMaster login) {
 
+		int num=(int)(10000*Math.random());
+		OTPGENERATE_AND_MAIL mail=new OTPGENERATE_AND_MAIL();
+		
 		LoginMaster log=logindao.findByusername(login.getUsername());
 		
 		Encryption_Decryption e =new Encryption_Decryption();
@@ -47,6 +51,7 @@ public class LoginImpl implements LoginService {
 			{
 				if(log.getRole().equals("Admin"))
 				{
+					//mail.sendEmail(num);
 					loger.info("Worked");
 					return log;
 				}
