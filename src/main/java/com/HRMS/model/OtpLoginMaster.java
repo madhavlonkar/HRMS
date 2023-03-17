@@ -1,5 +1,6 @@
 package com.HRMS.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,7 +21,7 @@ public class OtpLoginMaster {
 	private int pin;
 	
 	@CreationTimestamp
-	private LocalDateTime ts;
+	private Timestamp ts;
 
 	public int getId() {
 		return id;
@@ -46,12 +47,12 @@ public class OtpLoginMaster {
 		this.pin = pin;
 	}
 
-	public LocalDateTime getTs() {
+	public Timestamp getTs() {
 		return ts;
 	}
 
-	public void setTs(LocalDateTime ts) {
-		this.ts = ts;
+	public void setTs(Timestamp timestamp) {
+		this.ts = timestamp;
 	}
 
 	@Override
@@ -59,7 +60,7 @@ public class OtpLoginMaster {
 		return "OtpLoginMaster [id=" + id + ", Username=" + Username + ", pin=" + pin + ", ts=" + ts + "]";
 	}
 
-	public OtpLoginMaster(int id, String username, int pin, LocalDateTime ts) {
+	public OtpLoginMaster(int id, String username, int pin, Timestamp ts) {
 		super();
 		this.id = id;
 		Username = username;
