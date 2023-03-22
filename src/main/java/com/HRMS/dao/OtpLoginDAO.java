@@ -6,4 +6,5 @@ import com.HRMS.model.OtpLoginMaster;
 
 public interface OtpLoginDAO extends CrudRepository<OtpLoginMaster, Integer>{
 
+	public OtpLoginMaster findByUsername(String Username);
 }

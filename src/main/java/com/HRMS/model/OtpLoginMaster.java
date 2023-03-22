@@ -16,7 +16,7 @@ public class OtpLoginMaster {
 	@GeneratedValue
 	private int id;
 	
-	private String Username;
+	private String username;
 	
 	private int pin;
 	
@@ -31,12 +31,22 @@ public class OtpLoginMaster {
 		this.id = id;
 	}
 
+	
+
+	public OtpLoginMaster(int id, String username, int pin, Timestamp ts) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.pin = pin;
+		this.ts = ts;
+	}
+
 	public String getUsername() {
-		return Username;
+		return username;
 	}
 
 	public void setUsername(String username) {
-		Username = username;
+		this.username = username;
 	}
 
 	public int getPin() {
@@ -57,16 +67,10 @@ public class OtpLoginMaster {
 
 	@Override
 	public String toString() {
-		return "OtpLoginMaster [id=" + id + ", Username=" + Username + ", pin=" + pin + ", ts=" + ts + "]";
+		return "OtpLoginMaster [id=" + id + ", Username=" + username + ", pin=" + pin + ", ts=" + ts + "]";
 	}
 
-	public OtpLoginMaster(int id, String username, int pin, Timestamp ts) {
-		super();
-		this.id = id;
-		Username = username;
-		this.pin = pin;
-		this.ts = ts;
-	}
+	
 
 	public OtpLoginMaster() {
 		super();

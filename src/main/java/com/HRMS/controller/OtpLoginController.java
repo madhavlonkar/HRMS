@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.HRMS.model.OtpLoginMaster;
 import com.HRMS.services.OtpLoginService;
+import com.fasterxml.jackson.annotation.OptBoolean;
 
 @RestController
 public class OtpLoginController {
@@ -15,12 +16,9 @@ public class OtpLoginController {
 	private OtpLoginService otpLoginService;
 	
 	
-	@PostMapping("/otplogin")
-	public OtpLoginMaster saveotp(@RequestBody OtpLoginMaster otplogin)
+	public void OtpSave(String username,int otp)
 	{
-		OtpLoginMaster saveotp = this.otpLoginService.saveotp(otplogin);
-		return saveotp;
-		
+		this.otpLoginService.saveotp(username,otp);
 	}
 
 }

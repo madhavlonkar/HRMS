@@ -14,17 +14,25 @@ public class OtpLoginImpl implements OtpLoginService {
 
 	@Autowired
 	private OtpLoginDAO otpLoginDAO;
-	
-	@Override
-	public OtpLoginMaster saveotp(OtpLoginMaster otplogin) {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		otplogin.setTs(timestamp);
-		
-		OtpLoginMaster OtpSaved = this.otpLoginDAO.save(otplogin);
-		
-		return OtpSaved;
-	}
 
-	
+	@Override
+	public boolean saveotp(String username, int otp) {
+
+		OtpLoginMaster findByusername = otpLoginDAO.findByUsername(username);
+		if (findByusername != null) {
+			return false;
+		} else {
+			OtpLoginMaster otpmaster = new OtpLoginMaster();
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+			otpmaster.setUsername(username);
+			otpmaster.setPin(otp);
+			otpmaster.setTs(timestamp);
+
+			this.otpLoginDAO.save(otpmaster);
+
+			return true;
+		}
+	}
 
 }

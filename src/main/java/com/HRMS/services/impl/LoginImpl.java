@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.HRMS.controller.OtpLoginController;
 import com.HRMS.dao.LoginDAO;
 import com.HRMS.model.LoginMaster;
 import com.HRMS.services.LoginService;
@@ -22,6 +23,9 @@ public class LoginImpl implements LoginService {
 	
 	@Autowired
 	private LoginDAO logindao;
+	
+	@Autowired
+	private OtpLoginController Otpcontroller;
 	
 	@Override
 	public List<LoginMaster> getalllogins() {
@@ -55,20 +59,23 @@ public class LoginImpl implements LoginService {
 				
 				if(log.getRole().equals("Admin"))
 				{
-					//mail.sendEmail(num);
+//					mail.sendEmail(num);
 					loger.info("Worked");
+					Otpcontroller.OtpSave(login.getUsername(), num);
 					return log;
 				}
 				else if(log.getRole().equals("Employee"))
 				{
 					//mail.sendEmail(num);
 					loger.info("Worked");
+					Otpcontroller.OtpSave(login.getUsername(), num);
 					return log;
 				}
 				else if(log.getRole().equals("HR"))
 				{
 					//mail.sendEmail(num);
 					loger.info("Worked");
+					Otpcontroller.OtpSave(login.getUsername(), num);
 					return log;
 				}
 			}
