@@ -12,7 +12,6 @@ import com.HRMS.dao.LoginDAO;
 import com.HRMS.model.LoginMaster;
 import com.HRMS.services.LoginService;
 import com.HRMS.utility.CeaserCipher_Encryption;
-import com.HRMS.utility.Encryption_Decryption;
 import com.HRMS.utility.OTPGENERATE_AND_MAIL;
 
 @Service
