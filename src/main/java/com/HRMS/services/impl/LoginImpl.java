@@ -7,10 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.HRMS.controller.OtpLoginController;
 import com.HRMS.dao.LoginDAO;
 import com.HRMS.model.LoginMaster;
 import com.HRMS.services.LoginService;
-import com.HRMS.utility.Encryption_Decryption;
+import com.HRMS.utility.CeaserCipher_Encryption;
+import com.HRMS.utility.OTPGENERATE_AND_MAIL;
 
 @Service
 public class LoginImpl implements LoginService {
@@ -20,6 +22,9 @@ public class LoginImpl implements LoginService {
 	
 	@Autowired
 	private LoginDAO logindao;
+	
+	@Autowired
+	private OtpLoginController Otpcontroller;
 	
 	@Override
 	public List<LoginMaster> getalllogins() {
@@ -33,21 +38,43 @@ public class LoginImpl implements LoginService {
 	@Override
 	public LoginMaster logincheck(LoginMaster login) {
 
+		int num=(int)(10000*Math.random());
+		OTPGENERATE_AND_MAIL mail=new OTPGENERATE_AND_MAIL();
+		
 		LoginMaster log=logindao.findByusername(login.getUsername());
 		
-		Encryption_Decryption e =new Encryption_Decryption();
+//		Encryption_Decryption e =new Encryption_Decryption();
+		CeaserCipher_Encryption c=new CeaserCipher_Encryption();
 		
-		String EncryptedPassword=e.encrypt(login.getPassword(), "Maddy");
+		String EncryptedPassword=c.encrypt(login.getPassword());
 		
 		
 		
 		if(login.getUsername().equals(log.getUsername()))
 		{
+			
 			if(EncryptedPassword.equals(log.getPassword()))
 			{
+				
 				if(log.getRole().equals("Admin"))
 				{
+//					mail.sendEmail(num);
 					loger.info("Worked");
+					Otpcontroller.OtpSave(login.getUsername(), num);
+					return log;
+				}
+				else if(log.getRole().equals("Employee"))
+				{
+					//mail.sendEmail(num);
+					loger.info("Worked");
+					Otpcontroller.OtpSave(login.getUsername(), num);
+					return log;
+				}
+				else if(log.getRole().equals("HR"))
+				{
+					//mail.sendEmail(num);
+					loger.info("Worked");
+					Otpcontroller.OtpSave(login.getUsername(), num);
 					return log;
 				}
 			}
@@ -81,8 +108,10 @@ public class LoginImpl implements LoginService {
 	@Override
 	public LoginMaster addlogin(LoginMaster login) {
 		
-		Encryption_Decryption e=new Encryption_Decryption();
-		String EncryptString=e.encrypt(login.getPassword(), "Maddy");
+		CeaserCipher_Encryption c=new CeaserCipher_Encryption();
+		
+//		Encryption_Decryption e=new Encryption_Decryption();
+		String EncryptString=c.encrypt(login.getPassword());
 		login.setPassword(EncryptString);
 		
 		LoginMaster loginMaster = this.logindao.save(login);
