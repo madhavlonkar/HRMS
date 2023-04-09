@@ -21,91 +21,88 @@ import com.HRMS.services.AllowanceService;
 @RestController
 public class AllowanceController {
 
-
-	
 	@Autowired
-	private AllowanceService allowanceservice;
-	
-	@GetMapping("/allowance")
-	public ResponseEntity<List<AllowanceMaster>> getAllowanceController()
-	{
-		List<AllowanceMaster> allallowance = allowanceservice.getAllAllowanceService();
-		if(allallowance.size()<=0)
-		{
+	private AllowanceService allowanceService; // Service for Allowance
+
+	// Get All Allowances
+	@GetMapping("/allowances")
+	public ResponseEntity<List<AllowanceMaster>> getAllAllowances() {
+		List<AllowanceMaster> allAllowances = allowanceService.getAllAllowances();
+		
+		// If there are no allowances, return not found
+		if (allAllowances.size() <= 0) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-			
 		}
-		return ResponseEntity.of(Optional.of(allallowance));
+		
+		// Return all the allowances
+		return ResponseEntity.of(Optional.of(allAllowances));
 	}
-	
-	
-	@GetMapping("/allowance/{allowanceid}")
-	public ResponseEntity<AllowanceMaster> getAllowance(@PathVariable("allowanceid") int allowanceid)
-	{
-		AllowanceMaster allowanceById = allowanceservice.getAllowanceById(allowanceid);
-		if(allowanceById==null)
-		{
+
+	// Get Allowance by Id
+	@GetMapping("/allowances/{id}")
+	public ResponseEntity<AllowanceMaster> getAllowanceById(@PathVariable("id") int id) {
+		AllowanceMaster allowanceById = allowanceService.getAllowanceById(id);
+
+		// If there's no allowance with that id, return not found
+		if (allowanceById == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
+
+		// Return the allowance with that id
 		return ResponseEntity.ok().body(allowanceById);
-		
 	}
-	
-	@PostMapping("/allowance")
-	public ResponseEntity<AllowanceMaster> addAllowance(@RequestBody AllowanceMaster Allowance)
-	{
-		AllowanceMaster addAllowance=null; 
-		
-		try
-		{
-		addAllowance=this.allowanceservice.addAllowance(Allowance);
-		return ResponseEntity.ok().body(addAllowance);
-		}
-		catch(Exception e)
-		{
+
+	// Add an Allowance
+	@PostMapping("/allowances")
+	public ResponseEntity<AllowanceMaster> addAllowance(@RequestBody AllowanceMaster allowance) {
+		AllowanceMaster addedAllowance = null;
+
+		try {
+			// Try to add the allowance
+			addedAllowance = allowanceService.addAllowance(allowance);
+			return ResponseEntity.ok().body(addedAllowance);
+		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
-		
+
 	}
-	
-	@PutMapping("allowance/{allowanceid}")
-	public ResponseEntity<AllowanceMaster> updateallowance(@RequestBody AllowanceMaster allowance,@PathVariable int allowanceid)
-	{
-		AllowanceMaster allowance1=null;
-			
+
+	// Update an Allowance
+	@PutMapping("allowances/{id}")
+	public ResponseEntity<AllowanceMaster> updateAllowance(@RequestBody AllowanceMaster allowance, @PathVariable int id) {
+		AllowanceMaster updatedAllowance = null;
+
+		AllowanceMaster allowanceById = allowanceService.getAllowanceById(id);
 		
-		AllowanceMaster allowanceById = allowanceservice.getAllowanceById(allowanceid);
-		if(allowanceById==null)
-		{
+		// If there's no allowance with that id, return not found
+		if (allowanceById == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+		
+		try {
+			// Try to update the allowance
+			updatedAllowance = allowanceService.updateAllowance(allowance, id);
+			return ResponseEntity.ok().body(updatedAllowance);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+
+	}
+
+	// Delete an Allowance
+	@DeleteMapping("/allowances/{id}")
+	public ResponseEntity<Void> deleteAllowance(@PathVariable("id") int id) {
+		AllowanceMaster allowanceById = allowanceService.getAllowanceById(id);
+
+		// If there's no allowance with that id, return not found
+		if (allowanceById == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		try
 		{
-			allowance1=allowanceservice.updateallowance(allowance,allowanceid);
-			return ResponseEntity.ok().body(allowance1);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-		
-		
-	}
-	
-	@DeleteMapping("/allowance/{allowanceid}")
-	public ResponseEntity<Void> deleteallowance(@PathVariable("allowanceid") int allowanceid)
-	{
-		AllowanceMaster allowanceById = allowanceservice.getAllowanceById(allowanceid);
-		
-		if(allowanceById==null)
-		{
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-		try
-		{
-			this.allowanceservice.deleteallowance(allowanceid);
+			this.allowanceService.deleteAllowance(id);
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}
 		catch(Exception e)
@@ -113,12 +110,6 @@ public class AllowanceController {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
-		
-		
-		
-			
-			
-		
 		
 	}
 
