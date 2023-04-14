@@ -1,5 +1,7 @@
 package com.HRMS.model;
 
+import java.sql.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -10,11 +12,13 @@ public class InterviewMaster {
 	private int interview_id;
 	private int interviewer_id;
 	private int candidate_id;
-	private String interview_date;
+	private Date interview_date;
 	private String interview_time;
 	private String status;
 	private String remark;
 	private String interview_duration;
+	
+	
 	private int demand_id;
 	private String ovaerall_evalution;
 	private String strength;
@@ -65,14 +69,14 @@ public class InterviewMaster {
 	/**
 	 * @return the interview_date
 	 */
-	public String getInterview_date() {
+	public Date getInterview_date() {
 		return interview_date;
 	}
 
 	/**
 	 * @param interview_date the interview_date to set
 	 */
-	public void setInterview_date(String interview_date) {
+	public void setInterview_date(Date interview_date) {
 		this.interview_date = interview_date;
 	}
 
@@ -197,7 +201,7 @@ public class InterviewMaster {
 				+ ", strength=" + strength + ", weakness=" + weakness + "]";
 	}
 
-	public InterviewMaster(int interview_id, int interviewer_id, int candidate_id, String interview_date,
+	public InterviewMaster(int interview_id, int interviewer_id, int candidate_id, Date interview_date,
 			String interview_time, String status, String remark, String interview_duration, int demand_id,
 			String ovaerall_evalution, String strength, String weakness) {
 		super();
