@@ -9,7 +9,7 @@ import java.util.Date;
 public class DemandMaster {
 
     @Id
-    @Column(name = "DemandID")
+    @Column(name ="DemandID")
     private int demand_id;
 
     @ManyToOne
