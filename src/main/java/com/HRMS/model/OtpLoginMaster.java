@@ -6,13 +6,14 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class OtpLoginMaster {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	private String username;
@@ -73,7 +74,6 @@ public class OtpLoginMaster {
 
 	public OtpLoginMaster() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	

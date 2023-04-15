@@ -10,8 +10,13 @@ public interface EmployeeAllowanceService {
 
 	EmployeeAllowance assignallowance(EmployeeAllowance empallowance);
 
-	EmployeeAllowance updateallowance(int empid, EmployeeAllowance empallowance, int allowance_id);
+	boolean deleteallowance(EmployeeAllowance empallowance);
 
-	void deleteallowance(EmployeeAllowance empallowance);
+	EmployeeAllowance updateallowance(EmployeeAllowance empallowance);
+
+	boolean CheckEmployee(EmployeeAllowance empallowance);
+
+	
+
 
 }

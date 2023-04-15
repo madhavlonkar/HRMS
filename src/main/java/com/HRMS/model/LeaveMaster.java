@@ -5,6 +5,9 @@ import java.sql.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,9 +18,9 @@ public class LeaveMaster {
 	@Column(name="leaveid")
 	private int leaveid;
 	
-	@Id
-	@Column(name="empid")
-	private int empid;
+	@OneToOne
+	@JoinColumn(name="empid")
+	private EmployeeMaster empid;
 
 	@Column(name="leave_from")
 	private Date leave_from;
@@ -39,11 +42,11 @@ public class LeaveMaster {
 		this.leaveid = leaveid;
 	}
 
-	public int getEmpid() {
+	public EmployeeMaster getEmpid() {
 		return empid;
 	}
 
-	public void setEmpid(int empid) {
+	public void setEmpid(EmployeeMaster empid) {
 		this.empid = empid;
 	}
 
@@ -79,7 +82,7 @@ public class LeaveMaster {
 		this.leavereason = leavereason;
 	}
 
-	public LeaveMaster(int leaveid, int empid, Date leave_from, Date leave_to, String leave_type, String leavereason) {
+	public LeaveMaster(int leaveid, EmployeeMaster empid, Date leave_from, Date leave_to, String leave_type, String leavereason) {
 		super();
 		this.leaveid = leaveid;
 		this.empid = empid;

@@ -52,7 +52,11 @@ public class DesignationMaster {
 
 	public DesignationMaster() {
 		super();
-		// TODO Auto-generated constructor stub
+	}
+	
+	public DesignationMaster(int designation_id) {
+		super();
+		this.designation_id=designation_id;
 	}
 
 	@Override

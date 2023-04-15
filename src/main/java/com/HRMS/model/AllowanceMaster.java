@@ -52,8 +52,13 @@ public class AllowanceMaster {
 
 		public AllowanceMaster() {
 			super();
-			// TODO Auto-generated constructor stub
 		}
+		
+		public AllowanceMaster(int allowance_id) {
+			super();
+			this.allowance_id=allowance_id;
+		}
+		
 
 		@Override
 		public String toString() {

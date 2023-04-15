@@ -1,107 +1,120 @@
 package com.HRMS.model;
 
-import java.io.Serializable;
-import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-@SuppressWarnings("serial")
-class EmployeeAllowanceId implements Serializable {
-    private int employeeId;
-    private int allowanceId;
-	public int getEmployeeId() {
-		return employeeId;
-	}
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
-	}
-	public int getAllowanceId() {
-		return allowanceId;
-	}
-	public void setAllowanceId(int allowanceId) {
-		this.allowanceId = allowanceId;
-	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(allowanceId, employeeId);
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		EmployeeAllowanceId other = (EmployeeAllowanceId) obj;
-		return Objects.equals(allowanceId, other.allowanceId) && Objects.equals(employeeId, other.employeeId);
-	}
-	
-	
-
-    
-    // constructors, getters, and setters
-    // make sure to implement equals() and hashCode() methods as well
-}
-
 @Entity
-@Table(name="employee_allowance_master")
-@IdClass(EmployeeAllowanceId.class)
+@Table(name = "employee_allowance_master")
 public class EmployeeAllowance {
-	
 
-//@OneToOne(cascade = CascadeType.ALL)
+	
 	@Id
-    private int employeeId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
+	@OneToOne
+	@JoinColumn(name = "emp_id")
+	private EmployeeMaster employeeId;
 
-    @Id
-    private int allowanceId;
-	
-	@Column(name="allowance_name")
-	private String allowance_name;
-	
-	@Column(name="allowance_amount")
+	@ManyToOne
+	@JoinColumn(name = "allowance_id")
+	private AllowanceMaster allowanceid;
+
+	@Column(name = "allowance_amount")
 	private int allowance_amount;
 
-	public int getEmployeeId() {
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * @return the employeeId
+	 */
+	public EmployeeMaster getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+	/**
+	 * @return the allowanceid
+	 */
+	public AllowanceMaster getAllowanceid() {
+		return allowanceid;
 	}
 
-	public int getAllowanceId() {
-		return allowanceId;
-	}
-
-	public void setAllowanceId(int allowanceId) {
-		this.allowanceId = allowanceId;
-	}
-
-	public String getAllowance_name() {
-		return allowance_name;
-	}
-
-	public void setAllowance_name(String allowance_name) {
-		this.allowance_name = allowance_name;
-	}
-
+	/**
+	 * @return the allowance_amount
+	 */
 	public int getAllowance_amount() {
 		return allowance_amount;
 	}
 
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	/**
+	 * @param employeeId the employeeId to set
+	 */
+	public void setEmployeeId(EmployeeMaster employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	/**
+	 * @param allowanceid the allowanceid to set
+	 */
+	public void setAllowanceid(AllowanceMaster allowanceid) {
+		this.allowanceid = allowanceid;
+	}
+
+	/**
+	 * @param allowance_amount the allowance_amount to set
+	 */
 	public void setAllowance_amount(int allowance_amount) {
 		this.allowance_amount = allowance_amount;
 	}
 
-	
-	
-	
-	
+	/**
+	 * @param id
+	 * @param employeeId
+	 * @param allowanceid
+	 * @param allowance_amount
+	 */
+	public EmployeeAllowance(Integer id, EmployeeMaster employeeId, AllowanceMaster allowanceid, int allowance_amount) {
+		super();
+		this.id = id;
+		this.employeeId = employeeId;
+		this.allowanceid = allowanceid;
+		this.allowance_amount = allowance_amount;
+	}
 
+	/**
+	 * 
+	 */
+	public EmployeeAllowance() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "EmployeeAllowance [id=" + id + ", employeeId=" + employeeId + ", allowanceid=" + allowanceid
+				+ ", allowance_amount=" + allowance_amount + "]";
+	}
+
+	
 }

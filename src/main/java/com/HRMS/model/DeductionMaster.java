@@ -52,7 +52,6 @@ public class DeductionMaster {
 
 	public DeductionMaster() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

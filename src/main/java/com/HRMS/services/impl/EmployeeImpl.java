@@ -44,7 +44,7 @@ public class EmployeeImpl implements EmployeeService {
 	public EmployeeMaster updateemp(EmployeeMaster empmaster, int empid) {
 
 		try {
-			empmaster.setEmpid(empid);
+			empmaster.setEmpId(empid);
 			EmployeeMaster employeeMaster = empDAO.save(empmaster);
 			return employeeMaster;
 		} catch (Exception e) {

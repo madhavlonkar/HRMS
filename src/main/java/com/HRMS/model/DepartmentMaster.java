@@ -65,7 +65,11 @@ public class DepartmentMaster {
 
 	public DepartmentMaster() {
 		super();
-		// TODO Auto-generated constructor stub
+	}
+	
+	public DepartmentMaster(int department_id) {
+		super();
+		this.department_id=department_id;
 	}
 
 	@Override

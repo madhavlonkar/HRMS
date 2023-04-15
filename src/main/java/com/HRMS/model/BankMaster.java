@@ -64,9 +64,13 @@ public class BankMaster {
 
 	public BankMaster() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
+	 
+	public BankMaster(int bank_id) {
+		super();
+		this.bank_id=bank_id;
+	}
+	
 	@Override
 	public String toString() {
 		return "BankMaster [bank_id=" + bank_id + ", bank_name=" + bank_name + ", bank_branch=" + bank_branch
