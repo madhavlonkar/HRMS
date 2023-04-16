@@ -1,7 +1,14 @@
 package com.HRMS.model;
 
+import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class InterviewMaster {
@@ -10,15 +17,55 @@ public class InterviewMaster {
 	private int interview_id;
 	private int interviewer_id;
 	private int candidate_id;
-	private String interview_date;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date interview_date;
 	private String interview_time;
 	private String status;
 	private String remark;
 	private String interview_duration;
-	private int demand_id;
+
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn( referencedColumnName = "demand_id",  updatable = false)
+	private DemandMaster demand;
+
 	private String ovaerall_evalution;
 	private String strength;
 	private String weakness;
+	
+	
+	
+	public InterviewMaster(int interview_id, int interviewer_id, int candidate_id, Date interview_date,
+			String interview_time, String status, String remark, String interview_duration, DemandMaster demand,
+			String ovaerall_evalution, String strength, String weakness) {
+		super();
+		this.interview_id = interview_id;
+		this.interviewer_id = interviewer_id;
+		this.candidate_id = candidate_id;
+		this.interview_date = interview_date;
+		this.interview_time = interview_time;
+		this.status = status;
+		this.remark = remark;
+		this.interview_duration = interview_duration;
+		this.demand = demand;
+		this.ovaerall_evalution = ovaerall_evalution;
+		this.strength = strength;
+		this.weakness = weakness;
+	}
+
+	/**
+	 * @return the demand
+	 */
+	public DemandMaster getDemand() {
+		return demand;
+	}
+
+	/**
+	 * @param demand the demand to set
+	 */
+	public void setDemand(DemandMaster demand) {
+		this.demand = demand;
+	}	
 
 	/**
 	 * @return the interview_id
@@ -65,14 +112,14 @@ public class InterviewMaster {
 	/**
 	 * @return the interview_date
 	 */
-	public String getInterview_date() {
+	public Date getInterview_date() {
 		return interview_date;
 	}
 
 	/**
 	 * @param interview_date the interview_date to set
 	 */
-	public void setInterview_date(String interview_date) {
+	public void setInterview_date(Date interview_date) {
 		this.interview_date = interview_date;
 	}
 
@@ -135,16 +182,6 @@ public class InterviewMaster {
 	/**
 	 * @return the demand_id
 	 */
-	public int getDemand_id() {
-		return demand_id;
-	}
-
-	/**
-	 * @param demand_id the demand_id to set
-	 */
-	public void setDemand_id(int demand_id) {
-		this.demand_id = demand_id;
-	}
 
 	/**
 	 * @return the ovaerall_evalution
@@ -193,26 +230,8 @@ public class InterviewMaster {
 		return "InterviewMaster [interview_id=" + interview_id + ", interviewer_id=" + interviewer_id
 				+ ", candidate_id=" + candidate_id + ", interview_date=" + interview_date + ", interview_time="
 				+ interview_time + ", status=" + status + ", remark=" + remark + ", interview_duration="
-				+ interview_duration + ", demand_id=" + demand_id + ", ovaerall_evalution=" + ovaerall_evalution
+				+ interview_duration + ", demand=" + demand + ", ovaerall_evalution=" + ovaerall_evalution
 				+ ", strength=" + strength + ", weakness=" + weakness + "]";
-	}
-
-	public InterviewMaster(int interview_id, int interviewer_id, int candidate_id, String interview_date,
-			String interview_time, String status, String remark, String interview_duration, int demand_id,
-			String ovaerall_evalution, String strength, String weakness) {
-		super();
-		this.interview_id = interview_id;
-		this.interviewer_id = interviewer_id;
-		this.candidate_id = candidate_id;
-		this.interview_date = interview_date;
-		this.interview_time = interview_time;
-		this.status = status;
-		this.remark = remark;
-		this.interview_duration = interview_duration;
-		this.demand_id = demand_id;
-		this.ovaerall_evalution = ovaerall_evalution;
-		this.strength = strength;
-		this.weakness = weakness;
 	}
 
 	public InterviewMaster() {

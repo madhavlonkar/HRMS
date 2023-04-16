@@ -2,10 +2,16 @@ package com.HRMS.model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class DemandMaster {
 	
 	@Id
@@ -16,8 +22,12 @@ public class DemandMaster {
 	private String demand_designation;
 	private String demand_job_desc;
 	private String no_of_position;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date post_date;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date start_date;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date close_date;
 	private String status;
 	private String mode;
