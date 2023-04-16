@@ -26,6 +26,7 @@ public class InterviewMaster {
 
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn( referencedColumnName = "demand_id",  updatable = false)
 	private DemandMaster demand;
 
 	private String ovaerall_evalution;
